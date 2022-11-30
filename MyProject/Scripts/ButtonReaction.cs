@@ -14,7 +14,7 @@ public class ButtonReaction : MonoBehaviour
     public Sprite Music_Off;
     [SerializeField] private Sprite PauseSpr, NoPauseSpr;
     Image Music_Component_Image,PauseImage;
-    Bird bird;
+    private Bird bird;
     private static Slider Music_Value_Slider;
     static float Music_Value =0.5f;
 

@@ -67,7 +67,11 @@ public class ChangeButton : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
 	public void Raset()
 	{
         Reset_Menu_Animation.PlayQueued("Exit_Menu");
+
         Main_Window.PlayQueued("Main_Menu");
+ 
+
+     
 
        
       
@@ -79,7 +83,10 @@ public class ChangeButton : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
         PlayerPrefs.DeleteKey("Level_number");
 
         Reset_Menu_Animation.PlayQueued("Exit_Menu_2");
+
         Main_Window.PlayQueued("Main_Menu_2");
+
+        LoadScene.number_level = 1;
     }
 
     public void NoReset()

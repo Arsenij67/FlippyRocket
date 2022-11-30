@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,25 +25,19 @@ public class LoadScene : MonoBehaviour
 
 	private void Update()
 	{
-
-        if (Change_RGBA > 0)
-        {
-            Change_RGBA = ((Text_Level.color.a - 0.1f * Time.deltaTime));
-
-            Text_Level.color = new Color(1, 1, 1, Change_RGBA);
-            Text_Level.text = "Level " + number_level;
-        }
+         
+       
     }
 	private void Start()
     {
         Procent_Moved = GameObject.FindWithTag("Slider_Procent")?.GetComponent<Slider>();
         Music_Button = GameObject.FindWithTag("GameController").GetComponent<AudioSource>();
 
-        Text_Level = GameObject.Find("Text_Level")?.GetComponent<Text>();
+       
         Change_RGBA = 1;
 
 
-
+ 
 
 
 
@@ -63,8 +58,9 @@ public class LoadScene : MonoBehaviour
             SceneManager.LoadScene("Scene" + PlayerPrefs.GetInt("Level_number"));
        
             PlayerPrefs.Save();
-            print("Data saved !");
-            print(number_level);
+
+            Change_Rgba(1);
+
         }
     
 
@@ -74,7 +70,36 @@ public class LoadScene : MonoBehaviour
 
     }
 
-    public void Continue()
+
+    public  async void Change_Rgba(int speed)
+    {
+        AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync($"Scene{PlayerPrefs.GetInt("Level_number")}");
+
+        while (loadSceneAsync.progress < 1f)
+        {
+            await Task.Yield();
+
+        }
+        Text_Level = GameObject.Find("Text_Level").GetComponent<Text>();
+
+        while (Change_RGBA > 0)
+        {
+            Change_RGBA = ((Text_Level.color.a - 0.3f * Time.deltaTime));
+
+            Text_Level.color = new Color(1, 1, 1, Change_RGBA);
+
+            Text_Level.text = "Level " + number_level;
+
+            await Task.Delay(speed);
+          
+        }
+       
+
+    }
+    /// <summary>
+    /// Запускается при нажатии на Play
+    /// </summary>
+    public async void Continue()
     {
 
         Music_Button.clip = Button_Clip;
@@ -85,7 +110,9 @@ public class LoadScene : MonoBehaviour
             PlayerPrefs.SetInt("Level_number", 1);
         }
 
-        SceneManager.LoadScene($"Scene{ PlayerPrefs.GetInt("Level_number")}");
+        
+
+        Change_Rgba(1);
 
 
 

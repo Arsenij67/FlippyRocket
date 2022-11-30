@@ -18,7 +18,7 @@ public class Rocket_Moving_Menu : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         
         if (Input.touchCount > 0)
