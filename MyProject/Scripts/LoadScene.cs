@@ -9,19 +9,19 @@ public class LoadScene : MonoBehaviour
 {
     public Animation Reset_Menu_Animation;
     // Start is called before the first frame update
-   public static short number_level=1;
+    public static short number_level=1;
     [SerializeField] private GameObject Main_Menu;
     [SerializeField] private GameObject Quit_Menu;
     private Animation Exit_Menu;
     private Animation General_Menu;
-   public Transform End_Point, Player_Now;
+    public Transform End_Point, Player_Now;
     public Slider Procent_Moved;
     private AudioSource Music_Button;
     public AudioClip Button_Clip;
 
     private float Change_RGBA;
     private Text Text_Level;
-    [HideInInspector]
+    
 
 	private void Update()
 	{
@@ -35,13 +35,6 @@ public class LoadScene : MonoBehaviour
 
        
         Change_RGBA = 1;
-
-
- 
-
-
-
-
 
 
     }
@@ -62,9 +55,6 @@ public class LoadScene : MonoBehaviour
             Change_Rgba(1);
 
         }
-    
-
-
 
 
 
@@ -99,7 +89,7 @@ public class LoadScene : MonoBehaviour
     /// <summary>
     /// Запускается при нажатии на Play
     /// </summary>
-    public async void Continue()
+    public void Continue()
     {
 
         Music_Button.clip = Button_Clip;
@@ -110,20 +100,16 @@ public class LoadScene : MonoBehaviour
             PlayerPrefs.SetInt("Level_number", 1);
         }
 
-        
 
         Change_Rgba(1);
-
 
 
     }
 
     public void MainMenu()
     {
-     
         SceneManager.LoadScene("Scene" + 0);
         Time.timeScale = 1;
-
 
     }
 
